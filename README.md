@@ -20,7 +20,21 @@ Das Zeichen <kbd>~</kbd> ist kein Dead-Key.
 
 Das `.dmg`-Image herunterladen (siehe Releases) und Anweisungen folgen.
 
-Alternativ: Dieses Repository clonen und das Bundle `pc-win-de-keyboard.bundle` nach `/Library/Keyboard Layouts` kopieren. (Tipp: Im Finder `Cmd+Shift+G`.)
+Alternativ: Dieses Repository clonen und das Bundle manuell kopieren:
+
+```bash
+# Nur für aktuellen Benutzer
+git lfs pull
+mkdir -p ~/Library/Keyboard\ Layouts
+cp -R pc-win-de-keyboard.bundle ~/Library/Keyboard\ Layouts/
+```
+
+```bash
+# Für alle Benutzer (Admin-Rechte nötig)
+sudo cp -R pc-win-de-keyboard.bundle "/Library/Keyboard Layouts/"
+```
+
+Wenn das Layout danach nicht sofort in den Eingabequellen erscheint: einmal ab- und wieder anmelden (oder neu starten).
 
 ## Aktivieren
 
@@ -33,6 +47,17 @@ Dann die Sprache **Deutsch** und hier das Layout **Deutsch - PC** auswählen.
 ![Tastaturlayout auswählen](images/add-keyboard-layout2.png)
 
 Das bisherigen Layout kann man dann per `-` Knopf entfernen (um versehentliches Zurückwechseln zum bisherigen Layout zu verhindern.) Siehe aber auch den nächsten Abschnitt.
+
+## Empfohlene Einstellungen für externe PC-Tastaturen (z.B. MSI Vigor GK30)
+
+1. **Tastaturtyp prüfen**
+   * **Systemeinstellungen** -> **Tastatur** -> **Tastaturtyp ändern...**
+   * Für deutsche PC-Tastaturen muss in der Regel **ISO (Europäisch)** erkannt sein, sonst sind u.a. `<`, `>` und `|` oft falsch zugeordnet.
+
+2. **Modifiertasten prüfen**
+   * **Systemeinstellungen** -> **Tastatur** -> **Tastaturkurzbefehle...** -> **Modifiertasten**
+   * Für das hier gelieferte Layout muss eine `Option`-Taste als `Option (⌥)` aktiv sein (Alt/AltGr-Ebene).
+   * Optional: `Command` und `Option` tauschen, wenn sich die Windows-Tastenposition natürlicher anfühlen soll.
 
 ## Tastaturlayout im Anmeldebildschirm
 
