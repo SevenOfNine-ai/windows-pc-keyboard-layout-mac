@@ -36,7 +36,7 @@ There is no automated build system, test framework, or CI pipeline. Testing is m
 
 - `root/pc-win-de-keyboard.bundle/` — standard macOS `.bundle` package
   - `Contents/Resources/German - PC.keylayout` — Apple Keyboard Layout XML (the core file, ~484 lines)
-  - `Contents/Info.plist` / `version.plist` — bundle metadata (version `1.0.1`)
+  - `Contents/Info.plist` / `version.plist` — bundle metadata (version `1.0.2`)
   - `Contents/Resources/{de,en}.lproj/` — localization strings
 - `icon/convert-png-to-icns.sh` — converts `icon/layout-icon.png` → `.icns` via macOS `sips`
 - `docs/security-audit.md` — security analysis confirming zero vulnerabilities

@@ -34,7 +34,7 @@ sudo cp -R root/pc-win-de-keyboard.bundle "/Library/Keyboard Layouts/"
 
 ```bash
 npm install -g opkg
-opkg install @sevenofnine/windows-pc-keyboard-layout-mac@1.0.1
+opkg install @sevenofnine/windows-pc-keyboard-layout-mac@1.0.2
 bash install-macos.sh
 ```
 

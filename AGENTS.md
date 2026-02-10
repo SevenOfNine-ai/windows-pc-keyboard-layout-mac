@@ -15,7 +15,7 @@ This repository distributes a German Windows-PC keyboard layout for macOS. The l
 
 - `root/pc-win-de-keyboard.bundle/` — distributable macOS bundle containing all keyboard layout resources
   - `Contents/Info.plist` — bundle metadata, identifiers, and language info
-  - `Contents/version.plist` — version tracking (currently `1.0.1`)
+  - `Contents/version.plist` — version tracking (currently `1.0.2`)
   - `Contents/Resources/German - PC.keylayout` — **primary XML layout definition** (edit via Ukulele, not by hand)
   - `Contents/Resources/German - PC.icns` — bundle icon (generated from `icon/layout-icon.png`)
   - `Contents/Resources/de.lproj/InfoPlist.strings` — German UI strings
@@ -62,7 +62,7 @@ This repository distributes a German Windows-PC keyboard layout for macOS. The l
 
 - Follows Apple's standard `.bundle` convention (macOS package format)
 - Two localization variants: `de.lproj` (German) and `en.lproj` (English)
-- Version tracking in both `Info.plist` (`CFBundleVersion`) and `version.plist` (now `1.0.1`)
+- Version tracking in both `Info.plist` (`CFBundleVersion`) and `version.plist` (now `1.0.2`)
 - Unique bundle identifier: `org.sil.ukelele.keyboardlayout.pc-win-de-keyboard`
 
 ### Platform Target
