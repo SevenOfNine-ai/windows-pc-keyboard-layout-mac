@@ -71,17 +71,17 @@ This repository also enforces actor validation in workflow CI, so non-authorized
 
 For release-triggered publish, use GitHub tag format:
 
-- `v1.0.2`
+- `v1.0.3`
 
 and make sure:
 
-- `openpackage.yml` contains the same package version (without `v`), for example `1.0.2`
+- `openpackage.yml` contains the same package version (without `v`), for example `1.0.3`
 
 Version/tag mapping:
 
-- GitHub release tag: `v1.0.2`
-- OpenPackage version in manifest: `1.0.2`
-- OpenPackage install command: `opkg install @sevenofnine/windows-pc-keyboard-layout-mac@1.0.2`
+- GitHub release tag: `v1.0.3`
+- OpenPackage version in manifest: `1.0.3`
+- OpenPackage install command: `opkg install @sevenofnine/windows-pc-keyboard-layout-mac@1.0.3`
 
 ## Local Manual Publish
 

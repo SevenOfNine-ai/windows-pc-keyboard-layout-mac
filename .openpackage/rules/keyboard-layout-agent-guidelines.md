@@ -36,7 +36,7 @@ root/                                        (files installed by `opkg install`)
 └── pc-win-de-keyboard.bundle/
     ├── Contents/
     │   ├── Info.plist                       (bundle metadata)
-    │   ├── version.plist                    (version: 1.0.2)
+    │   ├── version.plist                    (version: 1.0.3)
     │   └── Resources/
     │       ├── German - PC.keylayout        (⚠️ DO NOT edit by hand)
     │       ├── German - PC.icns             (⚠️ auto-generated)

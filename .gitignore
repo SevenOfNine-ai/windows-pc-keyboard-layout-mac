@@ -33,3 +33,8 @@ package.yml
 
 # Local static docs build output
 _site/
+
+# Local package payload extracted by "opkg install gh@..."
+# Keep the tracked source files under root/ unaffected.
+/install-macos.sh
+/pc-win-de-keyboard.bundle/

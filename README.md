@@ -8,9 +8,11 @@ German keyboard layout for macOS with Windows-PC-like special-character key posi
 
 ```bash
 npm install -g opkg
-opkg install @sevenofnine/windows-pc-keyboard-layout-mac@1.0.2
+opkg install gh@SevenOfNine-ai/windows-pc-keyboard-layout-mac@v1.0.3
 bash install-macos.sh
 ```
+
+Note: In `gh@...` syntax, the version is a Git ref. This repository tags releases as `vX.Y.Z`, so use `@v1.0.3` (not `@1.0.3`).
 
 ### Clone and Install
 
