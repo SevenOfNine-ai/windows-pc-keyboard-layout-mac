@@ -1,4 +1,4 @@
-﻿# Summary
+# Summary
 
 - [Home](readme.md)
 - [What It Is and Why](what-and-why.md)

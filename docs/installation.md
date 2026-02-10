@@ -1,4 +1,4 @@
-﻿# Installation
+# Installation
 
 ## Option 1: Clone Repository
 

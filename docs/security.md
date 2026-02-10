@@ -1,4 +1,4 @@
-﻿# Why It Is Secure to Use
+# Why It Is Secure to Use
 
 ## Short Answer
 

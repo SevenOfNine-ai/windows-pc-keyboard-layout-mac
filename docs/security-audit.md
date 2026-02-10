@@ -1,4 +1,4 @@
-﻿# Security Audit Report
+# Security Audit Report
 
 **Date**: February 10, 2026
 **Scope**: Windows PC Keyboard Layout for macOS Repository

@@ -1,4 +1,4 @@
-﻿# Known Limitations
+# Known Limitations
 
 This project intentionally focuses on layout mapping, not system-level keyboard behavior. The following limitations currently apply:
 

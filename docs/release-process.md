@@ -1,4 +1,4 @@
-﻿# GitBook Deployment Process (GitHub Pages)
+# GitBook Deployment Process (GitHub Pages)
 
 This repository publishes documentation from `docs/` to GitHub Pages using a GitHub Actions workflow and GitBook-compatible structure.
 
@@ -47,7 +47,13 @@ If this is restricted to tags only, deployments from `main` will be rejected by 
 
 The workflow:
 
-1. installs `honkit` (GitBook-compatible builder)
-2. builds docs from `docs/` into `_site/`
-3. copies shared images from `images/` into `_site/images/`
-4. deploys `_site/` to GitHub Pages
+1. enables Yarn via Corepack (`corepack enable`)
+2. prepares compatibility files (`README.md`, `SUMMARY.md`) from lowercase docs filenames at CI runtime
+3. builds docs from `docs/` into repository-root `_site/` using `yarn dlx honkit build docs "$PWD/_site"` with `YARN_NODE_LINKER=node-modules`
+4. verifies `_site/index.html` exists (fails fast if missing)
+5. copies shared images from `images/` into `_site/images/`
+6. deploys `_site/` to GitHub Pages
+
+Published URL (project pages):
+
+- `https://sevenofnine-ai.github.io/windows-pc-keyboard-layout-mac/`

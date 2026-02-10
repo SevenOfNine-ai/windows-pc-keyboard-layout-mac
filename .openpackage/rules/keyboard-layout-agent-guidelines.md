@@ -1,4 +1,4 @@
-﻿# AI Agent Guidelines for German Windows-PC Keyboard Layout
+# AI Agent Guidelines for German Windows-PC Keyboard Layout
 
 Agent instructions for working with the `windows-pc-keyboard-layout-mac` repository. These guidelines are synchronized across multiple platforms (Cursor, Claude, Codex, OpenCode) via OpenPackage.
 
@@ -122,7 +122,7 @@ Follow `.editorconfig` strictly:
 - **Default indentation**: 4 spaces (all file types)
 - **YAML**: 2-space indentation
 - **JSON**: Tab indentation
-- **Markdown**: UTF-8 BOM + 4-space indentation
+- **Markdown**: UTF-8 + 4-space indentation
 - **Line endings**: LF (Unix-style)
 - **Trailing whitespace**: Remove
 

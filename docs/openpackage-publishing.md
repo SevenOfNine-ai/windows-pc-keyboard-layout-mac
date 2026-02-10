@@ -1,4 +1,4 @@
-﻿# OpenPackage Publishing
+# OpenPackage Publishing
 
 This repository can be published to the OpenPackage registry from CI.
 

@@ -1,4 +1,4 @@
-﻿# Repository Guidelines
+# Repository Guidelines
 
 > **Note**: AI agent guidelines are maintained in `.openpackage/rules/keyboard-layout-agent-guidelines.md` and synchronized across platforms (Cursor, Claude, Codex, OpenCode) via [OpenPackage](https://openpackage.dev/). For the authoritative agent instructions, see that file.
 
@@ -105,7 +105,7 @@ Verified safe against:
 ## Coding Style & Naming Conventions
 
 - Follow `.editorconfig` exactly: default 4-space indentation, LF line endings, trailing-whitespace trimming.
-- Markdown files use UTF-8 BOM and 4-space indentation; JSON files use tabs; YAML uses 2 spaces.
+- Markdown files use UTF-8 and 4-space indentation; JSON files use tabs; YAML uses 2 spaces.
 - Prefer editing `German - PC.keylayout` with Ukulele to avoid accidental structural regressions.
 - Keep existing bundle/resource naming stable (for example, `German - PC.keylayout`, `de.lproj`, `en.lproj`).
 - Name new scripts and image assets descriptively with lowercase kebab-case where possible.
@@ -114,7 +114,7 @@ Verified safe against:
 
 ### Safe to Edit
 
-- ✅ `README.md` — documentation (follow UTF-8 BOM + 4-space indentation per `.editorconfig`)
+- ✅ `README.md` — documentation (follow UTF-8 + 4-space indentation per `.editorconfig`)
 - ✅ `docs/*.md` — new documentation, including security or architectural notes
 - ✅ `AGENTS.md` — this file, including task guidelines and architecture notes
 - ✅ `.editorconfig` — formatting rules for the project

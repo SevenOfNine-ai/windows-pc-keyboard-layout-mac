@@ -1,4 +1,4 @@
-﻿# German Windows-PC Keyboard Layout for macOS
+# German Windows-PC Keyboard Layout for macOS
 
 German keyboard layout for macOS with Windows-PC-like special-character key positions.
 

@@ -46,7 +46,7 @@ The keylayout XML contains: key-to-character maps for base/Shift/Option layers, 
 
 ## Conventions
 
-- Follow `.editorconfig`: Markdown uses UTF-8 BOM + 4-space indent; JSON uses tabs; YAML uses 2-space indent; LF line endings everywhere
+- Follow `.editorconfig`: Markdown uses UTF-8 + 4-space indent; JSON uses tabs; YAML uses 2-space indent; LF line endings everywhere
 - Commit messages: short, imperative, German (e.g., `Layout Icon angepasst`). One logical change per commit
 - New scripts/assets: lowercase kebab-case naming
 - Git LFS is used for binary files (icons, images) — run `git lfs pull` after cloning

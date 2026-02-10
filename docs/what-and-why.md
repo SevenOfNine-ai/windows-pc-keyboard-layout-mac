@@ -1,4 +1,4 @@
-﻿# What It Is and Why
+# What It Is and Why
 
 ## What It Is
 

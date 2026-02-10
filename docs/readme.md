@@ -1,4 +1,4 @@
-﻿# German Windows-PC Keyboard Layout for macOS
+# German Windows-PC Keyboard Layout for macOS
 
 This project provides a German keyboard layout for macOS that keeps important special characters at the same physical key positions as on a German Windows PC keyboard.
 

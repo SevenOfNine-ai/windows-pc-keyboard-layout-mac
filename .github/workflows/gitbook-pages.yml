@@ -27,11 +27,38 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install Honkit
-        run: npm install --global honkit
+      - name: Enable Corepack (Yarn)
+        env:
+          COREPACK_ENABLE_DOWNLOAD_PROMPT: "0"
+        run: corepack enable
+
+      - name: Prepare GitBook compatibility files
+        run: |
+          set -euo pipefail
+
+          if [ ! -f docs/README.md ] && [ -f docs/readme.md ]; then
+            cp docs/readme.md docs/README.md
+          fi
+
+          if [ ! -f docs/SUMMARY.md ] && [ -f docs/summary.md ]; then
+            cp docs/summary.md docs/SUMMARY.md
+          fi
 
       - name: Build GitBook
-        run: honkit build docs _site
+        env:
+          YARN_NODE_LINKER: node-modules
+        run: yarn dlx honkit build docs "$PWD/_site"
+
+      - name: Verify site root
+        run: |
+          set -euo pipefail
+
+          if [ ! -f _site/index.html ]; then
+            echo "Missing _site/index.html after build."
+            echo "Generated files:"
+            ls -la _site || true
+            exit 1
+          fi
 
       - name: Copy shared images
         run: |
