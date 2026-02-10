@@ -24,6 +24,9 @@ jobs:
         with:
           lfs: true
 
+      - name: Pull Git LFS objects
+        run: git lfs pull
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -62,6 +65,10 @@ jobs:
         run: |
           mkdir -p _site/images
           cp -R images/. _site/images/
+
+      - name: List generated image artifact files
+        run: |
+          ls -lah _site/images
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
