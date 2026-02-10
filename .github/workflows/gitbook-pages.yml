@@ -49,6 +49,13 @@ jobs:
           YARN_NODE_LINKER: node-modules
         run: yarn dlx honkit build docs "$PWD/_site"
 
+      - name: Normalize image paths for GitHub Pages
+        run: |
+          set -euo pipefail
+
+          find _site -type f -name "*.html" -exec \
+            perl -0pi -e 's#(src|href)="../images/#$1="images/#g' {} +
+
       - name: Verify site root
         run: |
           set -euo pipefail
