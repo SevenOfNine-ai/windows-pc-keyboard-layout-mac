@@ -29,6 +29,7 @@ pc-win-de-keyboard.dmg
 .openpackage/packages/
 .openpackage/openpackage.yml
 .openpackage/openpackage.index.yml
+package.yml
 
 # Local static docs build output
 _site/

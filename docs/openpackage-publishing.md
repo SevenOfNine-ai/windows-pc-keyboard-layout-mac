@@ -11,6 +11,12 @@ Official OpenPackage docs:
 ## What Gets Published
 
 The package is defined by `openpackage.yml` and uses `root/` as the install payload.
+CI publishes from a clean staging directory that contains:
+
+- `openpackage.yml`
+- generated compatibility `package.yml` (mirrored from `openpackage.yml`)
+- `root/`
+- `README.md`
 
 Package naming requirement:
 
@@ -32,7 +38,9 @@ The workflow does the following:
 
 1. Installs `opkg`
 2. Validates release tag version (`vX.Y.Z`) against `openpackage.yml` `version`
-3. Publishes to OpenPackage using API key auth
+3. Creates a clean staging directory for publish (manifest + payload only)
+4. Creates a temporary `package.yml` mirror from `openpackage.yml` for registry compatibility
+5. Publishes to OpenPackage using API key auth
 
 ## Required GitHub Secret
 
@@ -90,6 +98,20 @@ or with explicit key:
 opkg publish --api-key "<your-api-key>"
 ```
 
+For parity with CI (recommended), publish from a clean staging directory:
+
+```bash
+STAGE_DIR="$(mktemp -d)"
+cp openpackage.yml "$STAGE_DIR/openpackage.yml"
+cp openpackage.yml "$STAGE_DIR/package.yml"
+cp README.md "$STAGE_DIR/README.md"
+cp -R root "$STAGE_DIR/root"
+(cd "$STAGE_DIR" && opkg publish --api-key "<your-api-key>")
+rm -rf "$STAGE_DIR"
+```
+
 ## Compatibility Note
 
 OpenPackage docs may show `opkg push` in newer CLI versions. This repository workflow supports both command styles and uses whichever is available.
+
+If the registry returns `Invalid package.yml file`, this repo's CI now mitigates that by generating `package.yml` from `openpackage.yml` right before publish.

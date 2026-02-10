@@ -75,6 +75,16 @@ jobs:
           PACKAGE_NAME="$(awk -F': *' '/^name:/{print $2; exit}' openpackage.yml | tr -d '"' | xargs)"
           PACKAGE_VERSION="$(awk -F': *' '/^version:/{print $2; exit}' openpackage.yml | tr -d '"' | xargs)"
 
+          STAGE_DIR="$(mktemp -d)"
+          trap 'rm -rf "$STAGE_DIR"' EXIT
+
+          cp openpackage.yml "$STAGE_DIR/openpackage.yml"
+          cp openpackage.yml "$STAGE_DIR/package.yml"
+          cp README.md "$STAGE_DIR/README.md"
+          cp -R root "$STAGE_DIR/root"
+
+          cd "$STAGE_DIR"
+
           if opkg publish -h 2>&1 | grep -q "Usage: openpackage publish"; then
             opkg publish --api-key "$OPENPACKAGE_API_KEY"
           elif opkg push -h 2>&1 | grep -q "Usage: openpackage push"; then
