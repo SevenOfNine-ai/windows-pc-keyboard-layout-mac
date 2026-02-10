@@ -7,5 +7,5 @@
 - [Security](security.md)
 - [OpenPackage Publishing](openpackage-publishing.md)
 - [Contributing](contributing.md)
-- [Release Process (GitBook + GitHub Pages)](release-process.md)
+- [Docs Deployment (GitBook + GitHub Pages)](release-process.md)
 - [Full Security Audit](security-audit.md)

@@ -1,4 +1,4 @@
-name: windows-pc-keyboard-layout-mac
+name: "@sevenofnine/windows-pc-keyboard-layout-mac"
 version: 1.0.1
 description: "German Windows PC keyboard layout for macOS (bundle + installer script)"
 license: MIT

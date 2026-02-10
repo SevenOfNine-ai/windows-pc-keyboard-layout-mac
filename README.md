@@ -8,7 +8,7 @@ German keyboard layout for macOS with Windows-PC-like special-character key posi
 
 ```bash
 npm install -g opkg
-opkg install windows-pc-keyboard-layout-mac@1.0.1
+opkg install @sevenofnine/windows-pc-keyboard-layout-mac@1.0.1
 bash install-macos.sh
 ```
 

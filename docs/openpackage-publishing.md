@@ -12,6 +12,11 @@ Official OpenPackage docs:
 
 The package is defined by `openpackage.yml` and uses `root/` as the install payload.
 
+Package naming requirement:
+
+- Use a scoped package name in `openpackage.yml` (for example `@sevenofnine/windows-pc-keyboard-layout-mac`)
+- Unscoped names can trigger interactive scope prompts, which breaks CI publish
+
 ## CI Workflow
 
 Workflow file:
@@ -56,13 +61,19 @@ This repository also enforces actor validation in workflow CI, so non-authorized
 
 ## Release Convention
 
-For release-triggered publish, use tag format:
+For release-triggered publish, use GitHub tag format:
 
 - `v1.0.1`
 
 and make sure:
 
-- `openpackage.yml` contains the same version (without `v`), for example `1.0.1`
+- `openpackage.yml` contains the same package version (without `v`), for example `1.0.1`
+
+Version/tag mapping:
+
+- GitHub release tag: `v1.0.1`
+- OpenPackage version in manifest: `1.0.1`
+- OpenPackage install command: `opkg install @sevenofnine/windows-pc-keyboard-layout-mac@1.0.1`
 
 ## Local Manual Publish
 

@@ -41,8 +41,15 @@ jobs:
         run: |
           set -euo pipefail
 
+          PACKAGE_NAME="$(awk -F': *' '/^name:/{print $2; exit}' openpackage.yml | tr -d '"' | xargs)"
           PACKAGE_VERSION="$(awk -F': *' '/^version:/{print $2; exit}' openpackage.yml | tr -d '"' | xargs)"
           TAG_VERSION="${GITHUB_REF_NAME#v}"
+
+          if ! [[ "$PACKAGE_NAME" =~ ^@[^/]+/[^@]+$ ]]; then
+            echo "openpackage.yml name must be scoped (for example: @scope/package-name)"
+            echo "Current name: $PACKAGE_NAME"
+            exit 1
+          fi
 
           if [ -z "$PACKAGE_VERSION" ]; then
             echo "openpackage.yml version is missing"

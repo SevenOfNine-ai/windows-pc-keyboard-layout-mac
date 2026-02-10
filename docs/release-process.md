@@ -1,4 +1,4 @@
-﻿# GitBook Release Process (GitHub Pages)
+﻿# GitBook Deployment Process (GitHub Pages)
 
 This repository publishes documentation from `docs/` to GitHub Pages using a GitHub Actions workflow and GitBook-compatible structure.
 
@@ -14,17 +14,15 @@ GitBook/Honkit structure config:
 
 The workflow runs on:
 
-- published GitHub releases
+- push to `main` (including merged pull requests)
 - manual dispatch (`workflow_dispatch`)
 
-## Release Steps
+## Deployment Steps
 
 1. Update docs in `docs/`.
-2. Ensure version metadata is correct (`openpackage.yml`, plist files if needed).
-3. Commit and push changes.
-4. Create and publish a GitHub release (typically from a `vX.Y.Z` tag).
-5. Wait for `gitbook-pages` workflow to finish.
-6. Read published docs on GitHub Pages.
+2. Commit changes and merge into `main`.
+3. Wait for `gitbook-pages` workflow to finish.
+4. Read published docs on GitHub Pages.
 
 ## OpenPackage Publish in CI
 
@@ -40,6 +38,10 @@ In GitHub repository settings:
 
 1. Open `Settings -> Pages`
 2. Set source to `GitHub Actions`
+3. Open `Settings -> Environments -> github-pages`
+4. Under deployment branches/tags, allow branch `main` (or configure no restriction)
+
+If this is restricted to tags only, deployments from `main` will be rejected by environment protection.
 
 ## Build Details
 
