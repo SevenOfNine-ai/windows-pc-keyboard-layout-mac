@@ -1,21 +1,21 @@
 ﻿# Repository Guidelines
 
-> **Note**: AI agent guidelines are maintained in `.openpackage/rules/keyboard-layout-agent-guidelines.md` and synchronized across platforms (Cursor, Claude, OpenCode) via [OpenPackage](https://openpackage.dev/). For the authoritative agent instructions, see that file.
+> **Note**: AI agent guidelines are maintained in `.openpackage/rules/keyboard-layout-agent-guidelines.md` and synchronized across platforms (Cursor, Claude, Codex, OpenCode) via [OpenPackage](https://openpackage.dev/). For the authoritative agent instructions, see that file.
 
 ## Project Overview
 
-This repository distributes a German Windows-PC keyboard layout for macOS. The layout maps keys to the same positions as Windows PC keyboards, enabling smooth cross-platform switching. The keyboard layout is **cryptographically transparent** and poses no security risk; see [`docs/SECURITY-AUDIT.md`](docs/SECURITY-AUDIT.md) for a comprehensive security analysis.
+This repository distributes a German Windows-PC keyboard layout for macOS. The layout maps keys to the same positions as Windows PC keyboards, enabling smooth cross-platform switching. The keyboard layout is **cryptographically transparent** and poses no security risk; see [`docs/security-audit.md`](docs/security-audit.md) for a comprehensive security analysis.
 
-**Key Technology**: Apple Keyboard Layout XML format (DTD: `System/Library/DTDs/KeyboardLayout.dtd`)  
-**Primary Editor**: [Ukulele](https://software.sil.org/ukelele/) (SIL tool for keyboard layout design)  
-**Platform**: macOS (Sierra and later)  
+**Key Technology**: Apple Keyboard Layout XML format (DTD: `System/Library/DTDs/KeyboardLayout.dtd`)
+**Primary Editor**: [Ukulele](https://software.sil.org/ukelele/) (SIL tool for keyboard layout design)
+**Platform**: macOS (Sierra and later)
 **Installation**: Copies bundle to `~/Library/Keyboard Layouts/` or `/Library/Keyboard Layouts/`
 
 ## Project Structure & Module Organization
 
-- `pc-win-de-keyboard.bundle/` — distributable macOS bundle containing all keyboard layout resources
+- `root/pc-win-de-keyboard.bundle/` — distributable macOS bundle containing all keyboard layout resources
   - `Contents/Info.plist` — bundle metadata, identifiers, and language info
-  - `Contents/version.plist` — version tracking (currently `1.0.0`)
+  - `Contents/version.plist` — version tracking (currently `1.0.1`)
   - `Contents/Resources/German - PC.keylayout` — **primary XML layout definition** (edit via Ukulele, not by hand)
   - `Contents/Resources/German - PC.icns` — bundle icon (generated from `icon/layout-icon.png`)
   - `Contents/Resources/de.lproj/InfoPlist.strings` — German UI strings
@@ -23,15 +23,17 @@ This repository distributes a German Windows-PC keyboard layout for macOS. The l
 - `images/` — README screenshots and visual documentation (`keyboard-alt.png` shows special character mappings)
 - `icon/` — source icon and conversion script (`layout-icon.png` → `German - PC.icns`)
 - `docs/` — documentation including security audit
+- `openpackage.yml` — OpenPackage package metadata for `opkg install gh@...`
+- `root/install-macos.sh` — helper script copied by OpenPackage for system installation
 - `.editorconfig` — formatting and indentation rules for all file types
 - `.vscode/` — VS Code workspace settings and extension recommendations
 
 ## Build, Test, and Development Commands
 
-- `sudo cp -R pc-win-de-keyboard.bundle "/Library/Keyboard Layouts/"`: install locally for manual verification.
+- `sudo cp -R root/pc-win-de-keyboard.bundle "/Library/Keyboard Layouts/"`: install locally for manual verification.
 - `bash icon/convert-png-to-icns.sh`: rebuild the icon from `icon/layout-icon.png` into bundle resources.
-- `plutil -lint pc-win-de-keyboard.bundle/Contents/Info.plist`: validate main bundle plist.
-- `plutil -lint pc-win-de-keyboard.bundle/Contents/version.plist`: validate version plist.
+- `plutil -lint root/pc-win-de-keyboard.bundle/Contents/Info.plist`: validate main bundle plist.
+- `plutil -lint root/pc-win-de-keyboard.bundle/Contents/version.plist`: validate version plist.
 - `git lfs pull`: ensure binary files (icons, images) are downloaded from Git LFS
 - DMG export is done in Ukulele (`File -> Export Installer Disk Image...`); no CLI build pipeline is maintained in this repo.
 
@@ -46,12 +48,13 @@ This repository distributes a German Windows-PC keyboard layout for macOS. The l
   - **keyMap index="0"**: unmodified keys (base layer)
   - **keyMap index="1"**: Shift-modified keys
   - **keyMap index="2"**: Option/Alt-modified keys (AltGr layer)
-  - **actions**: define dead-key behavior (circumflex `^`, acute `´`, grave `` ` ``, diaeresis `¨`, tilde `~`)
+  - **actions**: define dead-key behavior and composition rules
 
 ### Dead-Key Implementation
 
-- Dead-keys (states 1–5) create composition for accented characters
-- Tilde `~` is **not** a dead-key—pressing it produces `~` immediately, not a state transition
+- Active dead-key triggers: circumflex `^`, acute `´`, grave `` ` ``, diaeresis `¨`
+- Tilde `~` is **not** a dead-key trigger—pressing it produces `~` immediately
+- State 5 remains explicitly represented in actions/terminators for transparent composition handling
 - All dead-key outputs documented in `<terminators>` section
 - Dead-key composition uses finite state machine explicitly visible in XML
 
@@ -59,7 +62,7 @@ This repository distributes a German Windows-PC keyboard layout for macOS. The l
 
 - Follows Apple's standard `.bundle` convention (macOS package format)
 - Two localization variants: `de.lproj` (German) and `en.lproj` (English)
-- Version tracking in both `Info.plist` (`CFBundleVersion`) and `version.plist` (now `1.0.0`)
+- Version tracking in both `Info.plist` (`CFBundleVersion`) and `version.plist` (now `1.0.1`)
 - Unique bundle identifier: `org.sil.ukelele.keyboardlayout.pc-win-de-keyboard`
 
 ### Platform Target
@@ -71,7 +74,7 @@ This repository distributes a German Windows-PC keyboard layout for macOS. The l
 
 ## Security & Safety
 
-**⚠️ SECURITY CERTIFICATION**: This keyboard layout poses **NO data security risk**. See [`docs/SECURITY-AUDIT.md`](docs/SECURITY-AUDIT.md) for full analysis.
+**⚠️ SECURITY CERTIFICATION**: This keyboard layout poses **NO data security risk**. See [`docs/security-audit.md`](docs/security-audit.md) for full analysis.
 
 ### Security Model
 
@@ -110,6 +113,7 @@ Verified safe against:
 ## File-Level Guidelines for AI Agents
 
 ### Safe to Edit
+
 - ✅ `README.md` — documentation (follow UTF-8 BOM + 4-space indentation per `.editorconfig`)
 - ✅ `docs/*.md` — new documentation, including security or architectural notes
 - ✅ `AGENTS.md` — this file, including task guidelines and architecture notes
@@ -119,6 +123,7 @@ Verified safe against:
 - ✅ Shell scripts (e.g., `icon/convert-png-to-icns.sh`) — icon generation and utilities
 
 ### Dangerous to Edit Without Caution
+
 - ⚠️ `German - PC.keylayout` — DO NOT edit by hand; use Ukulele only
   - Any XML structural error breaks the entire layout
   - Key code mismatch causes wrong characters to output
@@ -126,6 +131,7 @@ Verified safe against:
 - ⚠️ Binary files (`*.icns`, `*.png`) — use GUI tools (Ukulele for icons, image editor for PNGs)
 
 ### Off-Limits (Automation-Generated)
+
 - ❌ `German - PC.icns` — auto-generated from `icon/layout-icon.png` via `bash icon/convert-png-to-icns.sh`
 - ❌ `.git/` and `.gitattributes` — version control configuration
 - ❌ `.gitignore` — ignore patterns (update only if new generated artifacts need exclusion)
@@ -133,24 +139,28 @@ Verified safe against:
 ## Common AI-Assisted Tasks
 
 ### Documentation & Analysis
+
 - ✅ Write or update `README.md` with usage instructions
 - ✅ Create security audits and technical documentation in `docs/`
 - ✅ Review and analyze keyboard layout mappings for correctness
 - ✅ Generate architectural diagrams or workflow documentation
 
 ### Configuration Management
+
 - ✅ Update version numbers in `Info.plist` and `version.plist`
 - ✅ Update localization strings in `de.lproj/` and `en.lproj/`
 - ✅ Modify `.editorconfig` rules and VS Code settings
 - ✅ Update build/test command documentation
 
 ### Code/Script Maintenance
+
 - ✅ Review and enhance shell scripts for robustness
 - ✅ Add error handling to `convert-png-to-icns.sh`
 - ✅ Create new utility scripts for development workflows
 - ✅ Document CLI validation commands (e.g., `plutil -lint` procedures)
 
 ### NOT Suitable for AI (Manual-Only Tasks)
+
 - ❌ Editing `.keylayout` XML directly—requires Ukulele GUI
 - ❌ Creating or modifying `.dmg` installers—requires Ukulele GUI
 - ❌ Icon design or PNG manipulation—requires image editor
@@ -170,6 +180,7 @@ Verified safe against:
 - Make one logical change per commit; avoid mixing keylayout, docs, and icon updates unless tightly coupled.
 - PRs should include: purpose, changed files, manual test notes, and updated screenshots when mappings or setup steps change.
 - Do not commit generated release artifacts such as `pc-win-de-keyboard.dmg` (already ignored).
+
 ## OpenPackage Integration
 
 AI agent instructions are maintained in **`.openpackage/rules/keyboard-layout-agent-guidelines.md`** as a universal format and are automatically synchronized across multiple platforms via [OpenPackage](https://openpackage.dev/).
@@ -178,6 +189,7 @@ AI agent instructions are maintained in **`.openpackage/rules/keyboard-layout-ag
 
 - **Cursor** → `.cursor/rules/`
 - **Claude** → `.claude/rules/`
+- **Codex** → `.codex/`
 - **OpenCode** → `.opencode/rules/`
 
 ### Applying Updates
@@ -185,7 +197,13 @@ AI agent instructions are maintained in **`.openpackage/rules/keyboard-layout-ag
 After modifying `.openpackage/rules/keyboard-layout-agent-guidelines.md`, sync to all platforms:
 
 ```bash
-opkg apply --platforms cursor,claude,opencode
+opkg apply --platforms cursor,claude,codex,opencode
 ```
 
-This ensures all AI agents (Cursor, Claude, OpenCode) have consistent project guidelines.
+If your installed OpenPackage CLI does not support `apply` yet, use:
+
+```bash
+opkg install . --platforms cursor claude codex opencode --force
+```
+
+This ensures all AI agents (Cursor, Claude, Codex, OpenCode) have consistent project guidelines.

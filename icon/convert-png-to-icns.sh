@@ -2,7 +2,7 @@
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SOURCE_ICON="$SCRIPT_DIR/layout-icon.png"
-TARGET_ICON="$SCRIPT_DIR/../pc-win-de-keyboard.bundle/Contents/Resources/German - PC.icns"
+TARGET_ICON="$SCRIPT_DIR/../root/pc-win-de-keyboard.bundle/Contents/Resources/German - PC.icns"
 
 if [ ! -f "$SOURCE_ICON" ]; then
     echo "Fehler: '$SOURCE_ICON' nicht gefunden."

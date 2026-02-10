@@ -1,13 +1,13 @@
-# AI Agent Guidelines for German Windows-PC Keyboard Layout
+﻿# AI Agent Guidelines for German Windows-PC Keyboard Layout
 
-Agent instructions for working with the `windows-pc-keyboard-layout-mac` repository. These guidelines are synchronized across multiple platforms (Cursor, Claude, OpenCode) via OpenPackage.
+Agent instructions for working with the `windows-pc-keyboard-layout-mac` repository. These guidelines are synchronized across multiple platforms (Cursor, Claude, Codex, OpenCode) via OpenPackage.
 
 ## Project Context
 
-**Repository**: windows-pc-keyboard-layout-mac  
-**Purpose**: Distribute a German Windows-PC keyboard layout for macOS  
-**Key Technology**: Apple Keyboard Layout XML (`System/Library/DTDs/KeyboardLayout.dtd`)  
-**Status**: ✅ Cryptographically transparent, no security risk ([Security Audit](docs/SECURITY-AUDIT.md))
+**Repository**: windows-pc-keyboard-layout-mac
+**Purpose**: Distribute a German Windows-PC keyboard layout for macOS
+**Key Technology**: Apple Keyboard Layout XML (`System/Library/DTDs/KeyboardLayout.dtd`)
+**Status**: ✅ Cryptographically transparent, no security risk ([Security Audit](docs/security-audit.md))
 
 ## Essential Guardrails
 
@@ -30,41 +30,48 @@ Agent instructions for working with the `windows-pc-keyboard-layout-mac` reposit
 ## Project Structure Reference
 
 ```
-pc-win-de-keyboard.bundle/
-├── Contents/
-│   ├── Info.plist                          (bundle metadata)
-│   ├── version.plist                       (version: 1.0.0)
-│   └── Resources/
-│       ├── German - PC.keylayout           (⚠️ DO NOT edit by hand)
-│       ├── German - PC.icns                (⚠️ auto-generated)
-│       ├── de.lproj/InfoPlist.strings      (✅ safe to edit)
-│       └── en.lproj/InfoPlist.strings      (✅ safe to edit)
-icons/                                       (source files for .icns)
-images/                                      (README screenshots)
-docs/                                        (security audit, technical docs)
+openpackage.yml                              (OpenPackage package manifest)
+root/                                        (files installed by `opkg install`)
+├── install-macos.sh                         (helper installer for macOS system path)
+└── pc-win-de-keyboard.bundle/
+    ├── Contents/
+    │   ├── Info.plist                       (bundle metadata)
+    │   ├── version.plist                    (version: 1.0.1)
+    │   └── Resources/
+    │       ├── German - PC.keylayout        (⚠️ DO NOT edit by hand)
+    │       ├── German - PC.icns             (⚠️ auto-generated)
+    │       ├── de.lproj/InfoPlist.strings   (✅ safe to edit)
+    │       └── en.lproj/InfoPlist.strings   (✅ safe to edit)
+icon/                                         (source files for .icns)
+images/                                       (README screenshots)
+docs/                                         (security audit, technical docs)
 ```
 
 ## Common AI Tasks & Scope
 
 ### Documentation & Analysis Tasks
+
 - Write or update `README.md` with installation/usage instructions
 - Create new documentation in `docs/` (e.g., troubleshooting guides)
 - Review keyboard layout mappings for correctness and completeness
 - Generate architectural diagrams explaining layout structure
 
 ### Configuration & Metadata Tasks
+
 - Update version numbers in `Info.plist` and `version.plist`
 - Modify localization strings in `de.lproj/` and `en.lproj/`
 - Refine `.editorconfig` formatting rules
 - Update VS Code settings in `.vscode/settings.json`
 
 ### Shell Script Maintenance
+
 - Review and enhance `icon/convert-png-to-icns.sh`
 - Add error handling and validation
 - Document CLI commands (e.g., `plutil -lint` validation)
 - Create new utility scripts for development workflows
 
 ### Tasks Requiring Human Intervention
+
 - Editing `.keylayout` XML directly (use Ukulele GUI)
 - Creating/exporting `.dmg` installers (use Ukulele GUI)
 - Icon design and PNG manipulation (use image editor)
@@ -85,8 +92,10 @@ docs/                                        (security audit, technical docs)
 ### Dead-Key Implementation
 
 Dead-keys use a finite-state machine approach:
-- **States 1–5**: circumflex `^`, acute `´`, grave `` ` ``, diaeresis `¨`, tilde `~`
-- **Exception**: Tilde `~` is NOT a dead-key (produces `~` immediately, never a state transition)
+
+- **Active dead-key trigger states**: circumflex `^`, acute `´`, grave `` ` ``, diaeresis `¨`
+- **Tilde behavior**: `~` outputs immediately (not a direct dead-key trigger in current mapping)
+- **State 5**: still explicitly represented in actions/terminators for transparent composition handling
 - **Composition**: Documented in `<terminators>` section
 - **Visual Reference**: See `images/keyboard-alt.png` for special character mappings
 
@@ -128,8 +137,8 @@ Run these to verify correctness:
 
 ```bash
 # Validate bundle plists
-plutil -lint pc-win-de-keyboard.bundle/Contents/Info.plist
-plutil -lint pc-win-de-keyboard.bundle/Contents/version.plist
+plutil -lint root/pc-win-de-keyboard.bundle/Contents/Info.plist
+plutil -lint root/pc-win-de-keyboard.bundle/Contents/version.plist
 
 # Download Git LFS objects (for icons, images)
 git lfs pull
@@ -138,7 +147,7 @@ git lfs pull
 bash icon/convert-png-to-icns.sh
 
 # Install bundle locally (system-wide)
-sudo cp -R pc-win-de-keyboard.bundle "/Library/Keyboard Layouts/"
+sudo cp -R root/pc-win-de-keyboard.bundle "/Library/Keyboard Layouts/"
 ```
 
 ## Testing & Verification
@@ -161,6 +170,7 @@ sudo cp -R pc-win-de-keyboard.bundle "/Library/Keyboard Layouts/"
 ### Record Test Results
 
 Document in commit messages or PRs:
+
 - macOS version tested
 - Test scope (standard keys, special characters, dead-keys, Alt layer)
 - Any unexpected behavior
@@ -176,6 +186,7 @@ Document in commit messages or PRs:
 ### Pull Request Requirements
 
 Include:
+
 - **Purpose**: Clear description of what changed and why
 - **Changed files**: List of modified files
 - **Test results**: macOS version, manual test checklist
@@ -184,7 +195,7 @@ Include:
 
 ## Security & Transparency
 
-**Certification**: This keyboard layout poses **NO security risk** to users. Full analysis: [Security Audit](docs/SECURITY-AUDIT.md)
+**Certification**: This keyboard layout poses **NO security risk** to users. Full analysis: [Security Audit](docs/security-audit.md)
 
 ### Security Model
 
@@ -202,9 +213,16 @@ Installation is safe even with elevated privileges.
 
 This agent guidelines file is maintained in `.openpackage/rules/` as a universal format and automatically synced to platform-specific agent instruction directories via `opkg apply`.
 
-**Sync platforms**: Cursor, Claude, OpenCode
+**Sync platforms**: Cursor, Claude, Codex, OpenCode
 
 To update all platforms after changes:
+
 ```bash
-opkg apply --platforms cursor,claude,opencode
+opkg apply --platforms cursor,claude,codex,opencode
+```
+
+If your CLI version does not support `apply`, use:
+
+```bash
+opkg install . --platforms cursor claude codex opencode --force
 ```

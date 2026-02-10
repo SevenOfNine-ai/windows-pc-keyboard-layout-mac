@@ -12,7 +12,7 @@ This keyboard layout bundle has been thoroughly audited for potential security v
 
 ## 1. Keylayout File Security
 
-**File**: `pc-win-de-keyboard.bundle/Contents/Resources/German - PC.keylayout`
+**File**: `root/pc-win-de-keyboard.bundle/Contents/Resources/German - PC.keylayout`
 
 ### Format & Execution Model
 
@@ -33,13 +33,12 @@ All key-to-character mappings are:
 
 Dead-keys are properly declared and transparent:
 
-- `^` (circumflex) - dead-key for accented characters
-- `` ` `` (grave) - dead-key for accented characters
-- `´` (acute) - dead-key for accented characters
-- `¨` (diaeresis) - dead-key for accented characters
-- `~` (tilde) - explicitly NOT a dead-key (non-dead)
+- `^` (circumflex) - active dead-key for accented characters
+- `` ` `` (grave) - active dead-key for accented characters
+- `´` (acute) - active dead-key for accented characters
+- `~` (tilde) - explicitly NOT a dead-key (non-dead, immediate output)
 
-All state transitions are visible in the `<actions>` section.
+Additional composition states for diaeresis/tilde are still explicitly visible in the `<actions>` section.
 
 ### Attack Vectors: None Detected
 
@@ -56,7 +55,7 @@ All state transitions are visible in the `<actions>` section.
 
 ### Info.plist
 
-**Location**: `pc-win-de-keyboard.bundle/Contents/Info.plist`
+**Location**: `root/pc-win-de-keyboard.bundle/Contents/Info.plist`
 
 **Security Review**:
 
@@ -69,7 +68,7 @@ All state transitions are visible in the `<actions>` section.
 
 ### version.plist
 
-**Location**: `pc-win-de-keyboard.bundle/Contents/version.plist`
+**Location**: `root/pc-win-de-keyboard.bundle/Contents/version.plist`
 
 **Security Review**:
 
@@ -99,10 +98,10 @@ All state transitions are visible in the `<actions>` section.
 
 ```bash
 # User-level installation
-cp -R pc-win-de-keyboard.bundle ~/Library/Keyboard\ Layouts/
+cp -R root/pc-win-de-keyboard.bundle ~/Library/Keyboard\ Layouts/
 
 # System-level installation (requires sudo)
-sudo cp -R pc-win-de-keyboard.bundle "/Library/Keyboard Layouts/"
+sudo cp -R root/pc-win-de-keyboard.bundle "/Library/Keyboard Layouts/"
 ```
 
 ### Security Analysis
@@ -135,7 +134,7 @@ sudo cp -R pc-win-de-keyboard.bundle "/Library/Keyboard Layouts/"
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SOURCE_ICON="$SCRIPT_DIR/layout-icon.png"
-TARGET_ICON="$SCRIPT_DIR/../pc-win-de-keyboard.bundle/Contents/Resources/German - PC.icns"
+TARGET_ICON="$SCRIPT_DIR/../root/pc-win-de-keyboard.bundle/Contents/Resources/German - PC.icns"
 
 # Checks if file exists
 if [ ! -f "$SOURCE_ICON" ]; then
@@ -284,6 +283,8 @@ All outputs are visible and expected.
 - `*.log` (log files)
 - `*.tmp` (temporary files)
 - `pc-win-de-keyboard.dmg` (generated installers)
+- `.openpackage/packages/` and `.openpackage/openpackage*.yml` (local OpenPackage workspace artifacts)
+- `_site/` (local GitBook/Honkit build output)
 
 **Security Review**: ✅ Safe - Standard development ignore patterns
 
@@ -294,7 +295,7 @@ All outputs are visible and expected.
 ### Directory Hierarchy
 
 ```
-pc-win-de-keyboard.bundle/
+root/pc-win-de-keyboard.bundle/
 ├── Contents/
 │   ├── Info.plist              ✅ Metadata only
 │   ├── version.plist           ✅ Version strings only
@@ -335,7 +336,7 @@ The entire repository consists of:
 
 ### Recommendations Implemented
 
-1. ✅ Added semantic versioning (v1.0.0) to both plist files
+1. ✅ Added semantic versioning (v1.0.1) to both plist files
 2. ✅ Maintained XML transparency for full auditability
 3. 💡 Consider adding code signing in future releases (optional enhancement)
 

@@ -12,18 +12,18 @@ German Windows-PC keyboard layout for macOS — maps special characters (`{`, `}
 
 ```bash
 # Validate plist files
-plutil -lint pc-win-de-keyboard.bundle/Contents/Info.plist
-plutil -lint pc-win-de-keyboard.bundle/Contents/version.plist
+plutil -lint root/pc-win-de-keyboard.bundle/Contents/Info.plist
+plutil -lint root/pc-win-de-keyboard.bundle/Contents/version.plist
 
 # Rebuild icon from source PNG
 bash icon/convert-png-to-icns.sh
 
 # Install for current user (manual testing)
 git lfs pull
-cp -R pc-win-de-keyboard.bundle ~/Library/Keyboard\ Layouts/
+cp -R root/pc-win-de-keyboard.bundle ~/Library/Keyboard\ Layouts/
 
 # Install system-wide
-sudo cp -R pc-win-de-keyboard.bundle "/Library/Keyboard Layouts/"
+sudo cp -R root/pc-win-de-keyboard.bundle "/Library/Keyboard Layouts/"
 ```
 
 There is no automated build system, test framework, or CI pipeline. Testing is manual: install the bundle, enable "Deutsch - PC" in System Settings → Keyboard → Input Sources, and verify key output.
@@ -34,12 +34,12 @@ There is no automated build system, test framework, or CI pipeline. Testing is m
 
 ## Architecture
 
-- `pc-win-de-keyboard.bundle/` — standard macOS `.bundle` package
+- `root/pc-win-de-keyboard.bundle/` — standard macOS `.bundle` package
   - `Contents/Resources/German - PC.keylayout` — Apple Keyboard Layout XML (the core file, ~484 lines)
-  - `Contents/Info.plist` / `version.plist` — bundle metadata (version `1.0.0`)
+  - `Contents/Info.plist` / `version.plist` — bundle metadata (version `1.0.1`)
   - `Contents/Resources/{de,en}.lproj/` — localization strings
 - `icon/convert-png-to-icns.sh` — converts `icon/layout-icon.png` → `.icns` via macOS `sips`
-- `docs/SECURITY-AUDIT.md` — security analysis confirming zero vulnerabilities
+- `docs/security-audit.md` — security analysis confirming zero vulnerabilities
 - `images/keyboard-alt.png` — reference image for Alt-layer special character mappings
 
 The keylayout XML contains: key-to-character maps for base/Shift/Option layers, and a finite state machine for dead-keys (circumflex, acute, grave, diaeresis). Tilde `~` is intentionally **not** a dead-key.
